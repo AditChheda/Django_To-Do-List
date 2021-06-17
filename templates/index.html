@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="{% static 'CSS/index.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/800px.css' %}">
+</head>
+<body>
+
+    <!--Header-->
+    <div class="flex-container header-border">
+        <div class="flex-item-left">
+            <img src="{% static 'media/to_do_app_logo_3.png' %}" alt="Logo" width="50%" height="90%"/>
+            <span class="brand-name">To Do List</span>
+        </div>
+
+        <div class="flex-item-middle">
+        <a href="{% url 'home' %}" class="button-home">Home</a>
+
+        <form action="{% url 'searchBar' %}" method="POST" class="header-form">
+        {% csrf_token %}
+            <select name="searchFilter" id="searchFilter" class="searchFilter">
+                <option value="Title">Title</option>
+                <option value="Description">Description</option>
+                <option value="Priority">Priority</option>
+                <option value="Created">Created</option>
+            </select>
+            <input type="search" name="searchBar" id="searchBar" class="searchBar">
+            <input type="submit" value="Search" class="searchButton">
+        </form>
+
+        </div>
+
+        <!--SignIn / SignUp-->
+        <!--<div class="flex-item-right"><button class="button-sign">SignUp / SignIn</button></div>-->
+        <!--SignIn / SignUp-->
+
+    </div>
+    <!--Header-->
+
+    <!--Body-->
+    <hr style="border: 3px solid rgb(116, 21, 240);">
+    {% block body %}
+    {% endblock %}
+    <!--Body-->
+    
+    <!--Footer-->
+    <!--Footer-->
+
+</body>
+</html>

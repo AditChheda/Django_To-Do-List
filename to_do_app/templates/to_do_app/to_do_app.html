@@ -1,0 +1,101 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<div class="flex-container to-do-app-flex-item">
+
+    {% if updateItemCheck %}
+        <form action="/updateItemFinal/{{id}}" method="POST" class="form-decor">
+        {% csrf_token %}
+            
+            {% for j in form %}
+                <div><span class="titles">{{j.label}}</span></div> <br/>
+                <div><span class="input-box">{{j}}</span></div> <br/>
+            {% endfor %}
+            
+            <input type="submit" value="Update Item" class="add-item">
+        </form>
+    {% else %}
+
+        <form action="{% url 'submitAddItem' %}" method="POST" class="form-decor">
+        {% csrf_token %}
+            
+            {% for j in form %}
+                <div><span class="titles">{{j.label}}</span></div> <br/>
+                <div><span class="input-box">{{j}}</span></div> <br/>
+            {% endfor %}
+            
+            <input type="submit" value="Add Item" class="add-item">
+        </form>
+
+    {% endif %}
+
+    <div class="flex-right flex-container-items">
+
+        {% if notFound %}
+            <h1 style="color:red; margin-left: 20px;">Result Not Found</h1>
+
+        {% elif result %}
+
+            {% for i in result %}
+                <div class="divItems">
+                    <table class="table-width">
+                        <tr>
+                            <th>Title</th>
+                            <td class="border-bottom"><div class="word-wrap">{{i.title}}</div></td>
+                            <td rowspan="4">
+                                <a href="/deleteItem/{{i.id}}"><button class="button-red">Delete</button></a> </br></br>
+                                <a href="/updateItem/{{i.id}}"><button class="button-yellow">Update</button></a> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td class="border-bottom"><div class="word-wrap">{{i.description}}</div></td>
+                        </tr>
+                        <tr>
+                            <th class="purple">Priority</th>
+                            <td class="border-bottom red">{{i.priority}}</td>
+                        </tr>
+                        <tr>
+                            <th>Created </th>
+                            <td>{{i.created_at}}</td>
+                        </tr>
+                    </table>
+                </div>
+            {% endfor %}
+
+        {% else %}
+
+            {% for i in fetchItems %}
+                <div class="divItems">
+                    <table class="table-width">
+                        <tr>
+                            <th>Title</th>
+                            <td class="border-bottom"><div class="word-wrap">{{i.title}}</div></td>
+                            <td rowspan="4">
+                                <a href="/deleteItem/{{i.id}}"><button class="button-red">Delete</button></a> </br></br>
+                                <a href="/updateItem/{{i.id}}"><button class="button-yellow">Update</button></a> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td class="border-bottom"><div class="word-wrap">{{i.description}}</div></td>
+                        </tr>
+                        <tr>
+                            <th class="purple">Priority</th>
+                            <td class="border-bottom red">{{i.priority}}</td>
+                        </tr>
+                        <tr>
+                            <th>Created </th>
+                            <td>{{i.created_at}}</td>
+                        </tr>
+                    </table>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
+
+
